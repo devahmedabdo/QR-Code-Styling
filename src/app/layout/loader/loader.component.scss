@@ -1,0 +1,47 @@
+.loading-section {
+  @apply transition duration-300 scale-x-0  w-full fixed top-[65px] bg-violet-100 dark:bg-zinc-900 z-50;
+  height: calc(100% - 65px);
+  &.loading {
+    @apply z-50 scale-x-100 opacity-100;
+    .container {
+      @apply h-screen w-screen flex justify-center items-center;
+      > div {
+        @apply relative;
+        > div {
+          @apply w-16 h-16 bg-violet-900 dark:bg-violet-50 rounded-full;
+          &:first-child {
+            animation: upDown 0.5s cubic-bezier(0.86, 0, 1, 1) infinite
+              alternate;
+            @keyframes upDown {
+              0% {
+                transform: translateY(-100px);
+              }
+              80% {
+                transform: translateY(-10px) scaleY(1);
+              }
+              100% {
+                transform: translateY(10px) scaleY(0.6);
+              }
+            }
+          }
+          &:last-child {
+            @apply absolute top-1/2 left-0 bg-black z-10;
+            transform: scaley(0.1) translateY(-50%);
+            animation: shadow 0.5s cubic-bezier(0.86, 0, 1, 1) infinite
+              alternate;
+            @keyframes shadow {
+              0% {
+                filter: blur(30px);
+                opacity: 0.1;
+              }
+              100% {
+                filter: blur(10px);
+                opacity: 0.5;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,70 @@
+@use "@angular/material" as mat;
+@include mat.core();
+
+$QR-Code-primary: mat.define-palette(mat.$indigo-palette);
+$QR-Code-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$QR-Code-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$QR-Code-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $QR-Code-primary,
+      accent: $QR-Code-accent,
+      warn: $QR-Code-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($QR-Code-theme);
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  html,
+  body {
+    @apply bg-violet-100 dark:bg-zinc-900 text-violet-900 min-h-screen;
+    scroll-behavior: smooth;
+    font-family: Dosis, "Poppins", sans-serif;
+    font-weight: 400;
+  }
+  ::selection {
+    @apply text-violet-50 bg-violet-900;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+@layer components {
+  .container {
+    @apply mx-auto px-2 text-violet-700;
+    @media (min-width: 768px) {
+      max-width: 1200px;
+    }
+  }
+  .title {
+    @apply relative pl-6 py-5;
+    &::after {
+      content: "";
+      @apply absolute top-1/2 -translate-y-1/2 left-0 bg-violet-500 rounded-full w-4 h-4;
+    }
+  }
+  .qrDiv {
+    .qrcode {
+      @apply rounded-md w-24;
+    }
+  }
+}
+@layer utilities {
+}

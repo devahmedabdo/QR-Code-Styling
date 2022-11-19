@@ -1,0 +1,28 @@
+<header>
+  <div class="container">
+    <div class="logo">
+      <h1 routerLink="">
+        <fa-icon [icon]="logo"></fa-icon>
+        QR Code
+      </h1>
+    </div>
+    <nav>
+      <ul class="nav-menu">
+        <li (click)="toggleActive(menu)" style="--d:1" routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact:true}" routerLink="">Home</li>
+        <li (click)="toggleActive(menu)" style="--d:2" routerLinkActive="active" routerLink="generate">Generate</li>
+        <li (click)="toggleActive(menu)" style="--d:3" routerLinkActive="active" routerLink="history">
+          History</li>
+      </ul>
+    </nav>
+    <div class="dark-mode">
+      <mat-icon (click)="changeTheme('')" (click)="toggleActive(darkBtn)" class="sun">wb_sunny</mat-icon>
+      <fa-icon (click)="changeTheme('dark')" (click)="toggleActive(darkBtn)" class="moon" [icon]="moon"></fa-icon>
+    </div>
+    <div (click)="toggleActive(menu)" class="toggle-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</header>

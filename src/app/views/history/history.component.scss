@@ -1,0 +1,139 @@
+section.history {
+  .shure-div {
+    @apply fixed top-0 left-0 h-screen w-full flex justify-center items-center -z-20 opacity-0;
+    &.active {
+      @apply z-20 opacity-100;
+    }
+
+    backdrop-filter: blur(4px);
+    > div {
+      @apply bg-violet-100 text-violet-700 dark:text-violet-50 dark:bg-zinc-800 bg-opacity-50 dark:bg-opacity-50 rounded-lg shadow-2xl w-4/5 max-w-lg p-3 py-16 gap-6 flex flex-col items-center font-bold;
+      lord-icon {
+        @apply fill-violet-800 dark:fill-violet-50  w-36 h-36;
+      }
+      > div {
+        @apply flex gap-3;
+        > button {
+          @apply px-3 py-1 rounded-lg transition duration-150;
+          &:hover {
+            @apply bg-violet-700 text-violet-50 dark:text-violet-900 dark:bg-violet-50;
+          }
+        }
+      }
+    }
+  }
+  .container {
+    > .btns {
+      @apply flex justify-between items-center;
+      button {
+        @apply shadow-md hover:shadow-xl px-3 py-1 text-white dark:text-white rounded-3xl my-3 transition duration-300;
+        background: linear-gradient(45deg, #4c1d95, #a369ff);
+        &:disabled {
+          background: linear-gradient(45deg, #555555c9, #279fbc);
+          opacity: 0.5;
+        }
+      }
+      span {
+        @apply font-bold text-violet-700;
+      }
+    }
+    .qrcodes {
+      @apply grid gap-3 py-10 max-w-[1000px] mx-auto;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      > div {
+        perspective: 1000px;
+        @apply relative min-h-[300px];
+        > div {
+          backface-visibility: hidden;
+          transition: 0.3s;
+          transform-style: preserve-3d;
+          @apply gap-2 absolute w-full h-full shadow-md hover:shadow-2xl hover:scale-105   text-violet-700 dark:bg-zinc-800 rounded-xl bg-violet-50 dark:bg-zinc-800 flex items-center  flex-col;
+          &:first-child {
+            // @apply ;
+            .qrDiv {
+              &:first-child {
+                @apply rounded-md m-3 p-3 bg-violet-50 dark:bg-zinc-800 shadow;
+              }
+            }
+            > span {
+              @apply font-medium;
+            }
+            .qr-btn {
+              @apply flex gap-3 py-3;
+
+              fa-icon {
+                @apply relative w-8 h-8 transition duration-300 text-violet-500 flex items-center justify-center text-lg;
+                &:after {
+                  content: "";
+                  @apply -z-10 absolute top-0 left-0 rounded-full w-full h-full bg-violet-800 dark:bg-violet-50 scale-0 transition duration-300;
+                }
+                &:before {
+                  content: "";
+
+                  @apply scale-y-[.1] opacity-0 absolute top-full left-0 rounded-full w-full h-full bg-zinc-900 blur transition duration-300;
+                }
+                &:hover {
+                  @apply text-violet-50 dark:text-violet-800;
+
+                  &:after {
+                    @apply scale-100;
+                  }
+                  &:before {
+                    @apply opacity-10 dark:opacity-40;
+                  }
+                }
+              }
+            }
+          }
+          &:nth-child(2) {
+            @apply justify-center text-center font-medium;
+            transform: rotateY(180deg);
+          }
+        }
+        &.active {
+          > div {
+            &:first-child {
+              transform: rotateY(180deg);
+            }
+            &:nth-child(2) {
+              transform: rotateY(0deg);
+            }
+          }
+        }
+      }
+    }
+    .no-qrcode {
+      @apply relative flex min-h-[450px] flex-col justify-start items-center z-0 py-5 gap-5;
+      p {
+        @apply text-violet-700 font-bold;
+      }
+      button {
+        @apply px-3 py-1 text-white font-medium rounded-full;
+        background: linear-gradient(45deg, #1d8795, #b591ed);
+      }
+      > div {
+        @apply w-full h-full absolute top-0 bg-violet-100 dark:bg-zinc-900 -z-10;
+        > div {
+          @apply w-full h-full mix-blend-multiply;
+          background: url(../../../assets/images/no-qrcode-saved.gif) center
+            center no-repeat;
+          background-size: cover;
+        }
+      }
+    }
+  }
+}
+.dark {
+  .qrcodes {
+    > div {
+      > div {
+        &:first-child {
+          box-shadow: 0px 7px 6px 1px rgb(0 0 0 / 17%) !important;
+        }
+      }
+    }
+  }
+  .text-violet-700 {
+    @apply text-violet-50;
+  }
+}

@@ -1,0 +1,552 @@
+<div class="qr-code">
+  <div class="text-center font-bold capitalize pb-5 text-violet-700 dark:text-violet-300">
+    Current Data For {{dataType}}
+  </div>
+  <div class="container">
+    <div class="data-type">
+      <input hidden id="url" value="url" type="radio" name="dataType" [(ngModel)]="dataType" checked>
+      <input hidden id="phone" value="phone" type="radio" name="dataType" [(ngModel)]="dataType">
+      <input hidden id="sms" value="sms" type="radio" name="dataType" [(ngModel)]="dataType">
+      <input hidden id="email" value="email" type="radio" name="dataType" [(ngModel)]="dataType">
+      <input hidden id="whatsapp" value="whatsapp" type="radio" name="dataType" [(ngModel)]="dataType">
+      <input hidden id="wifi" value="wifi" type="radio" name="dataType" [(ngModel)]="dataType">
+      <input hidden id="vcard" value="vcard" type="radio" name="dataType" [(ngModel)]="dataType">
+      <swiper class="swiper" [config]="config">
+        <ng-template swiperSlide> <label (click)="setStep(0)" [ngClass]="{active : dataType === 'url'}" data-text="Link"
+            for="url">
+            <fa-icon [icon]="faLink"></fa-icon>
+          </label></ng-template>
+        <ng-template swiperSlide><label (click)="setStep(0)" [ngClass]="{active : dataType === 'phone'}"
+            data-text="Phone" for="phone">
+            <fa-icon [icon]="faPhone"></fa-icon>
+          </label></ng-template>
+        <ng-template swiperSlide> <label (click)="setStep(0)" [ngClass]="{active : dataType === 'sms'}" data-text="SMS"
+            for="sms">
+            <fa-icon [icon]="faSms"></fa-icon>
+          </label></ng-template>
+        <ng-template swiperSlide> <label (click)="setStep(0)" [ngClass]="{active : dataType === 'email'}"
+            data-text="Email" for="email">
+            <fa-icon [icon]="faAt"></fa-icon>
+          </label>
+        </ng-template>
+        <ng-template swiperSlide> <label (click)="setStep(0)" [ngClass]="{active : dataType === 'whatsapp'}"
+            data-text="Whatsapp" for="whatsapp">
+            <fa-icon [icon]="faWhatsApp"></fa-icon>
+          </label></ng-template>
+        <ng-template swiperSlide> <label (click)="setStep(0)" [ngClass]="{active : dataType === 'wifi'}"
+            data-text="WIFI" for="wifi">
+            <fa-icon [icon]="faWifi"></fa-icon>
+          </label></ng-template>
+        <ng-template swiperSlide> <label (click)="setStep(0)" [ngClass]="{active : dataType === 'vcard'}"
+            data-text="Contact" for="vcard">
+            <fa-icon [icon]="faIdCard"></fa-icon>
+          </label></ng-template>
+      </swiper>
+      <div class="swiper-pagination"></div>
+    </div>
+    <div class="qr-box">
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Qr Code Data
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="data-input">
+            <div *ngIf="dataType == 'url'">
+              <mat-form-field class="w-full">
+                <mat-label>Enter URL Or Text</mat-label>
+                <input (change)="makeqrcode()" matInput type="text" [(ngModel)]="text" name="url-data" type="text"
+                  placeholder="EX : ahmed-abdo.live">
+              </mat-form-field>
+            </div>
+            <div class="flex flex-wrap justify-between flex-col md:flex-row" *ngIf="dataType == 'email'">
+              <mat-form-field class="min-w-[240px]">
+                <mat-label>Enter Your Email</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="email" type="email" name="email"
+                  placeholder="EX : devahmedabdo@gmail.com">
+              </mat-form-field>
+              <mat-form-field class="min-w-[240px]">
+                <mat-label>Enter Your Subject</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="emailSubject" type="text" name="email-subject"
+                  placeholder="EX : Company Imports">
+              </mat-form-field>
+              <mat-form-field class="w-full">
+                <mat-label>Enter Your Message</mat-label>
+                <textarea (change)="makeqrcode()" class="h-52" matInput [(ngModel)]="sms" type="text"
+                  name="email-message" placeholder="EX : Muhammad Peace Be Upon Him"></textarea>
+              </mat-form-field>
+            </div>
+            <div *ngIf="dataType == 'sms'">
+              <mat-form-field color="primary" class="w-full">
+                <mat-label>Enter Your Phone</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="phone" type="tel" name="phone"
+                  placeholder="EX : 01112345678">
+              </mat-form-field>
+              <mat-form-field color="primary" class="w-full">
+                <mat-label>Enter Your Message</mat-label>
+                <textarea (change)="makeqrcode()" class="h-52" matInput [(ngModel)]="sms" type="text" name="sms-message"
+                  placeholder="EX : Muhammad Peace Be Upon Him"></textarea>
+              </mat-form-field>
+
+            </div>
+            <div *ngIf="dataType == 'phone'">
+              <mat-form-field color="primary" class="w-full">
+                <mat-label>Enter Your Phone</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="phone" type="tel" name="phone"
+                  placeholder="EX : 01112345678">
+              </mat-form-field>
+            </div>
+            <div class="flex gap-4" *ngIf="dataType == 'whatsapp'">
+              <mat-form-field color="primary" class="w-1/5  max-w-[90px] min-w-[90px] ">
+                <mat-label>Country Code</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="countryKey" type="text" name="whatsapp"
+                  placeholder="EX : 20">
+              </mat-form-field>
+              <mat-form-field color="primary" class="w-3/5 sm:w-4/5">
+                <mat-label>Whatsapp Number</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="phone" type="tel" name="whatsapp"
+                  placeholder="EX : 01112345678">
+              </mat-form-field>
+            </div>
+            <div *ngIf="dataType == 'wifi'">
+              <mat-form-field color="primary" class="w-full">
+                <mat-label>Enter Your Wifi Name</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="wifiName" name="wifiName" type="text"
+                  placeholder="EX : AhmedWifi">
+              </mat-form-field>
+              <mat-form-field color="primary" class="w-full">
+                <mat-label>Enter Your Wifi Password</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="wifiPass" name="wifiPass"
+                  [type]="hide ? 'password' : 'text'">
+
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide Password'"
+                  [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+              </mat-form-field>
+              <mat-form-field color="primary" class="w-full">
+                <mat-label>Select Your Wifi Security Type</mat-label>
+                <mat-select (selectionChange)="makeqrcode()" [(ngModel)]="wifiSecurity" name="wifi-security">
+                  <mat-option value="None">None</mat-option>
+                  <mat-option value="WPA">WPA</mat-option>
+                  <mat-option value="WPA3-Enterprise">WPA3-Enterprise</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-checkbox (change)="makeqrcode()" color="primary" name="wifiHidden" [(ngModel)]="wifiHidden">WIFI Is
+                Hidden
+              </mat-checkbox>
+            </div>
+            <div class="vcard" *ngIf="dataType == 'vcard'">
+              <mat-form-field>
+                <mat-label>Enter Your First Name</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="firstName" type="text" name="firstName"
+                  placeholder="EX : Ahmed">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your Last Name</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="lastName" type="text" name="lastName"
+                  placeholder="EX : Abdo">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your Mobile Phone</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="mobilePhone" type="tel" name="mobilePhone"
+                  placeholder="EX : 011123233434">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your Work Phone</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="workPhone" type="tel" name="workPhone"
+                  placeholder="EX : 011198898984">
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Enter Your Email</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="email" type="email" name="email"
+                  placeholder="EX : devahmedabdo@gmail.com">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your Street</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="street" type="address" name="street"
+                  placeholder="EX : Salah Salem St">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your City</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="city" type="address" name="city"
+                  placeholder="EX : El-Delengat">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your Governorate</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="gov" type="address" name="gov"
+                  placeholder="EX : El-Behera">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Enter Your Organization</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="organization" name="organization" type="text"
+                  placeholder="EX : Al-Azhary Labs">
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-label>Enter Note About Number</mat-label>
+                <input (change)="makeqrcode()" matInput [(ngModel)]="note" type="text" name="note"
+                  placeholder="EX : This Contact is Private Number">
+              </mat-form-field>
+            </div>
+          </div>
+          <mat-action-row>
+            <button class="next" mat-button (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Logo
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+
+          <div class="logo-input">
+            <div class="flex flex-wrap ">
+              <label for="logo">
+                <fa-icon [icon]="add"></fa-icon><span>Add Logo</span>
+              </label>
+              <input hidden (change)="setLogo($event)" id="logo" type="file" accept="image/png , image/jpg ,image/jpeg"
+                title="Only images are allowed" name="logo">
+              <fa-icon class="text-white" [icon]="close" *ngIf="logo" (click)="resetLogo()">Close</fa-icon>
+            </div>
+            <div>
+              <div class="w-56 flex justify-between items-center">
+                <span>Logo Size</span>
+                <mat-slider color="primary" thumbLabel [displayWith]=" formatLabel" tickInterval="1000"
+                  [(ngModel)]="logoSize" min="0.1" max="0.5" step="0.05" aria-label="units" (change)="makeqrcode()">
+                </mat-slider>
+
+              </div>
+              <div class="w-56 flex justify-between items-center">
+                <span>Logo Margin</span>
+                <mat-slider color="primary" thumbLabel [displayWith]=" formatLabel" tickInterval="1000"
+                  [(ngModel)]="logoMargin" min="0" max="40" step="2" aria-label="units" (change)="makeqrcode()">
+                </mat-slider>
+              </div>
+              <mat-checkbox color="primary" name="hideLogoBg" [(ngModel)]="hideLogoBg">Hide
+                Logo Bg
+              </mat-checkbox>
+            </div>
+
+          </div>
+
+
+          <mat-action-row>
+            <button class="previous" mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button class="next" mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Dots Setting
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="dots-setting">
+            <p class="title">Chose Your Dots Color</p>
+            <div class="color-div">
+              <mat-checkbox color="primary" [(ngModel)]="isGredient" name="isGredient">
+                Gredient Color
+              </mat-checkbox>
+              <div *ngIf="!isGredient">
+                <div>
+                  <span>Dots Color</span>
+                  <label for="dots-color" class="color-label" style="--bg:{{dotsColor}};"></label>
+                </div>
+                <input (change)="makeqrcode()" type="color" id="dots-color" name="dotsColor" [(ngModel)]="dotsColor"
+                  value="{{dotsColor}}" />
+              </div>
+              <div *ngIf="isGredient">
+                <div>
+
+                  <span>Dots Color One</span>
+                  <label for="dotsColorOne" style="--bg:{{dotsOptionsGredientColor1}};"></label>
+                  <input (change)="makeqrcode()" type="color" id="dotsColorOne" name="dotsColorOne"
+                    [(ngModel)]="dotsOptionsGredientColor1" [value]="dotsOptionsGredientColor1" />
+                </div>
+                <div>
+
+                  <span>Dots Color Two</span>
+                  <label for="dotsColorTwo" style="--bg:{{dotsOptionsGredientColor2}};"></label>
+                  <input (change)="makeqrcode()" type="color" id="dotsColorTwo" name="dotsColorTwo"
+                    [(ngModel)]="dotsOptionsGredientColor2" [value]="dotsOptionsGredientColor2" />
+                </div>
+                <mat-form-field class="">
+                  <mat-label>Enter Rotaion</mat-label>
+                  <input (change)="makeqrcode()" matInput type="number" name="dotsOptionsGredientRotaion"
+                    [(ngModel)]="dotsOptionsGredientRotaion" [value]="dotsOptionsGredientRotaion">
+
+                </mat-form-field>
+                <mat-form-field color="primary" class="w-fit">
+                  <mat-label>Select Gredient Type</mat-label>
+                  <mat-select (selectionChange)="makeqrcode()" [(ngModel)]="dotsOptionsGredientType"
+                    name="dotsOptionsGredientType">
+                    <mat-option value="linear">linear</mat-option>
+                    <mat-option value="radial">radial</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <p class="title">Chose Your Dots Type</p>
+            <div class="type-div">
+              <label [ngClass]="{active : dotsType=== 'square'}" for="square"><span></span></label>
+              <input hidden type="radio" id="square" name="square" [(ngModel)]="dotsType" value="square">
+              <label [ngClass]="{active : dotsType=== 'dots'}" for="dots"><span class="dots"></span></label>
+              <input hidden type="radio" id="dots" name="dots" [(ngModel)]="dotsType" value="dots">
+              <label [ngClass]="{active : dotsType=== 'rounded'}" for="rounded"><span class="rounded"></span></label>
+              <input hidden type="radio" id="rounded" name="rounded" [(ngModel)]="dotsType" value="rounded">
+              <label [ngClass]="{active : dotsType=== 'classy'}" for="classy"><span class="classy"></span></label>
+              <input hidden type="radio" id="classy" name="classy" [(ngModel)]="dotsType" value="classy">
+              <label [ngClass]="{active : dotsType=== 'classy-rounded'}" for="classy-rounded"><span
+                  class="classy-rounded"></span></label>
+              <input hidden type="radio" id="classy-rounded" name="classy-rounded" [(ngModel)]="dotsType"
+                value="classy-rounded">
+              <label [ngClass]="{active : dotsType=== 'extra-rounded'}" for="extra-rounded"><span
+                  class="extra-rounded"></span></label>
+              <input hidden type="radio" id="extra-rounded" name="extra-rounded" [(ngModel)]="dotsType"
+                value="extra-rounded">
+            </div>
+          </div>
+          <mat-action-row>
+            <button class="previous" mat-button (click)="prevStep()">Previous</button>
+            <button class="next" mat-button (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Corner Dots Setting
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <p class="title">Chose Your Corner Dots Color</p>
+            <div class="color-div">
+              <mat-checkbox color="primary" [(ngModel)]="isCornerGredient">
+                Gredient Color
+              </mat-checkbox>
+              <div *ngIf="!isCornerGredient">
+                <div>
+                  <span>Corner Dots Color</span>
+                  <label for="cornerDotsColor" style="--bg:{{cornerColor}}"></label>
+                </div>
+                <input (change)="makeqrcode()" type="color" id="cornerDotsColor" name="cornerColor"
+                  [(ngModel)]="cornerColor" [value]="cornerColor" />
+              </div>
+              <div *ngIf="isCornerGredient">
+                <div>
+                  <span>Corner Dots Color One</span>
+                  <label for="cornerDotsColorOne" style="--bg:{{cornerOptionsGredientColor1}} ;"></label>
+                  <input (change)="makeqrcode()" type="color" id="cornerDotsColorOne" name="cornerColorOne"
+                    [(ngModel)]="cornerOptionsGredientColor1" [value]="cornerOptionsGredientColor1" />
+                </div>
+                <div>
+                  <span>Corner Dots Color Two</span>
+                  <label for="cornerDotsColorTwo" style="--bg:{{cornerOptionsGredientColor2}}"></label>
+                  <input (change)="makeqrcode()" type="color" id="cornerDotsColorTwo" name="cornerColorTwo"
+                    [(ngModel)]="cornerOptionsGredientColor2" [value]="cornerOptionsGredientColor2" />
+                </div>
+                <mat-form-field>
+                  <mat-label>Enter Rotaion</mat-label>
+                  <input (change)="makeqrcode()" matInput type="number" name="cornerOptionsGredientRotaion"
+                    [(ngModel)]="cornerOptionsGredientRotaion" [value]="cornerOptionsGredientRotaion">
+
+                </mat-form-field>
+                <mat-form-field color="primary" class="w-fit">
+                  <mat-label>Select Gredient Type</mat-label>
+                  <mat-select (selectionChange)="makeqrcode()" [(ngModel)]="cornerOptionsGredientType"
+                    name="cornerOptionsGredientType">
+                    <mat-option value="linear">linear</mat-option>
+                    <mat-option value="radial">radial</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+            </div>
+            <p class="title">Chose Your Corner Dots Type</p>
+            <div class="type-div">
+              <label [ngClass]="{active : cornerType === 'square'}" for="cornerSquare"><span></span></label>
+              <input hidden type="radio" id="cornerSquare" [(ngModel)]="cornerType" value="square">
+              <label [ngClass]="{active : cornerType === 'dots'}" for="cornerDots"><span class="dots"></span></label>
+              <input hidden type="radio" id="cornerDots" [(ngModel)]="cornerType" value="dots">
+            </div>
+          </div>
+          <mat-action-row>
+            <button class="previous" mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button class="next" mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Corner Square Setting
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div>
+            <p class="title">Chose Your Corner Square Color</p>
+            <div class="color-div">
+              <mat-checkbox color="primary" [(ngModel)]="isSquareGredient">
+                Gredient Color
+              </mat-checkbox>
+              <div *ngIf="!isSquareGredient">
+                <div>
+                  <span>Corner Square Color</span>
+                  <label for="cornerSquareColor" style="--bg:{{squareColor}}"></label>
+                  <input (change)="makeqrcode()" type="color" id="cornerSquareColor" [(ngModel)]="squareColor"
+                    [value]="squareColor" />
+                </div>
+              </div>
+              <div *ngIf="isSquareGredient">
+                <div>
+                  <span>Corner Square Color One</span>
+                  <label for="squareOptionsGredientColor1" style="--bg:{{squareOptionsGredientColor1}}"></label>
+                  <input (change)="makeqrcode()" type="color" id="squareOptionsGredientColor1"
+                    name="squareOptionsGredientColor1" [(ngModel)]="squareOptionsGredientColor1"
+                    [value]="squareOptionsGredientColor1" />
+                </div>
+                <div>
+                  <span>Corner Square Color Two</span>
+                  <label for="squareOptionsGredientColor2" style="--bg:{{squareOptionsGredientColor2}}"></label>
+                  <input (change)="makeqrcode()" type="color" id="squareOptionsGredientColor2"
+                    name="squareOptionsGredientColor2" [(ngModel)]="squareOptionsGredientColor2"
+                    [value]="squareOptionsGredientColor2" />
+
+                </div>
+                <mat-form-field class="">
+                  <mat-label>Enter Rotaion</mat-label>
+                  <input (change)="makeqrcode()" matInput type="number" name="squareOptionsGredientRotaion"
+                    [(ngModel)]="squareOptionsGredientRotaion" [value]="squareOptionsGredientRotaion">
+                </mat-form-field>
+                <mat-form-field color="primary" class="w-fit">
+                  <mat-label>Select Gredient Type</mat-label>
+                  <mat-select (selectionChange)="makeqrcode()" [(ngModel)]="squareOptionsGredientType"
+                    name="squareOptionsGredientType">
+                    <mat-option value="linear">linear</mat-option>
+                    <mat-option value="radial">radial</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+            </div>
+            <p class="title">Chose Your Corner Square Type</p>
+            <div class="type-div">
+              <label [ngClass]="{active : squareType === 'square'}" for="squareSquare"><span></span></label>
+              <input hidden type="radio" id="squareSquare" [(ngModel)]="squareType" value="square">
+              <label [ngClass]="{active : squareType === 'dots'}" for="squareDots"><span class="dots"></span></label>
+              <input hidden type="radio" id="squareDots" [(ngModel)]="squareType" value="dots">
+              <label [ngClass]="{active : squareType === 'extra-rounded'}" for="squareExtraRounded"><span
+                  class="extra-rounded"></span></label>
+              <input hidden type="radio" id="squareExtraRounded" [(ngModel)]="squareType" value="extra-rounded">
+            </div>
+          </div>
+          <mat-action-row>
+            <button class="previous" mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button class="next" mat-button color="primary" (click)="nextStep()">Next</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+        <mat-expansion-panel [expanded]="step === 5" (opened)="setStep(5)" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Background Setting
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="bg-setting">
+            <p class="title">Chose Your Background Color</p>
+            <div class="color-div">
+              <mat-checkbox color="primary" [(ngModel)]="isBgGredient">
+                Gredient Color
+              </mat-checkbox>
+              <div *ngIf="!isBgGredient">
+                <div>
+                  <span>Background Color</span>
+                  <label for="bg-color" style="--bg:{{bgColor}}"></label>
+                </div>
+                <input (change)="makeqrcode()" matInput type="color" id="bg-color" name="bgColor" [(ngModel)]="bgColor"
+                  [value]="bgColor" />
+              </div>
+              <div *ngIf="isBgGredient">
+                <div>
+                  <span>Background Color One</span>
+                  <label for="bgColorOne" style="--bg:{{bgOptionsGredientColor1}}"></label>
+                  <input (change)="makeqrcode()" type="color" id="bgColorOne" name="bgColorOne"
+                    [(ngModel)]="bgOptionsGredientColor1" [value]="bgOptionsGredientColor1" />
+                </div>
+                <div>
+                  <span>Background Color Two</span>
+                  <label for="bgColorTwo" style="--bg:{{bgOptionsGredientColor2}}"></label>
+                  <input (change)="makeqrcode()" type="color" id="bgColorTwo" name="bgColorTwo"
+                    [(ngModel)]="bgOptionsGredientColor2" [value]="bgOptionsGredientColor2" />
+                </div>
+                <mat-form-field class="">
+                  <mat-label>Enter Rotaion</mat-label>
+                  <input (change)="makeqrcode()" matInput type="number" name="bgOptionsGredienstRotaion"
+                    [(ngModel)]="bgOptionsGredientRotaion" [value]="bgOptionsGredientRotaion">
+                </mat-form-field>
+                <mat-form-field color="primary" class="w-fit">
+                  <mat-label>Select Gredient Type</mat-label>
+                  <mat-select (selectionChange)="makeqrcode()" [(ngModel)]="bgOptionsGredientType"
+                    name="bgOptionsGredientType">
+                    <mat-option value="linear">linear</mat-option>
+                    <mat-option value="radial">radial</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button class="next" mat-button color="primary" (click)="nextStep()">End</button>
+
+          </mat-action-row>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="preview">
+      <div>
+        <mat-radio-group [(ngModel)]="shape" color="primary" class="flex gap-7 py-4 justify-center">
+          <mat-radio-button value="square">Square</mat-radio-button>
+          <mat-radio-button value="circle">Circle</mat-radio-button>
+        </mat-radio-group>
+        <div #canvas class="preview-box pb-10 " [title]="width + 'px'">
+        </div>
+      </div>
+      <div>
+        <span>SD</span>
+        <mat-slider class="mx-1" color="primary" thumbLabel [displayWith]=" formatLabel" [(ngModel)]="width"
+          tickInterval="1000" value="1500" step="100" min="500" max="5000" aria-label="units" (change)="makeqrcode()">
+        </mat-slider>
+        <span>HD</span>
+        <div>
+          <mat-slider color="primary" thumbLabel [displayWith]=" formatLabel" [(ngModel)]="margin" tickInterval="1000"
+            value="5" step="2" min="0" max="100" aria-label="units" (change)="makeqrcode()"></mat-slider>
+          <span class="block text-xs dark:text-violet-50">Margin {{margin}}px</span>
+        </div>
+        <div class="extension">
+          <label [ngClass]="{active : extension === 'png'}" for="png">png</label>
+          <label [ngClass]="{active : extension === 'jpeg'}" for="jpeg">jpeg</label>
+          <label [ngClass]="{active : extension === 'webp'}" for="webp">webp</label>
+          <label [ngClass]="{active : extension === 'svg'}" for="svg">svg</label>
+          <input hidden id="png" [(ngModel)]="extension" value="png" type="radio" name="extension">
+          <input hidden id="jpeg" [(ngModel)]="extension" value="jpeg" type="radio" name="extension">
+          <input hidden id="webp" [(ngModel)]="extension" value="webp" type="radio" name="extension">
+          <input hidden id="svg" [(ngModel)]="extension" value="svg" type="radio" name="extension">
+        </div>
+        <div>
+          <mat-form-field class="text-center">
+            <mat-label>Enter Qr Name</mat-label>
+            <input required matInput type="text" name="name" [(ngModel)]="name" [value]="name">
+            <mat-error>Please Enter Any Name </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="download-btn">
+          <button [disabled]="name === undefined || name === '' " (click)="download()">Save
+            File</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

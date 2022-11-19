@@ -1,0 +1,59 @@
+<app-loader></app-loader>
+<section class="history">
+  <div class="shure-div">
+    <div>
+      <lord-icon trigger="loop" delay="1000" src="../../../assets/delete.json"></lord-icon>
+      <span>Are You Shure ?</span>
+      <div>
+        <button class="yes" (click)="areYouShureDeleteAll(true)">Yes</button>
+        <button class="no" (click)="areYouShureDeleteAll(false)">Cancel</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="btns max-w-[1000px] mx-auto">
+      <button [disabled]="myQrArray.length == 0" (click)="active()">Clear All</button>
+      <span *ngIf="myQrArray.length !==0 ;else noSaved">{{myQrArray.length}} Qr-Code has been saved</span>
+      <ng-template #noSaved>
+        <span>No Qr-Code Saved</span>
+      </ng-template>
+    </div>
+    <div *ngIf="myQrArray.length == 0" class="no-qrcode">
+      <p>No QR-Code Saved</p>
+      <button routerLink="/generate">Make One</button>
+      <div>
+        <div></div>
+      </div>
+    </div>
+    <div class="qrcodes">
+      <div [class]="'qr'+i" *ngFor="let qr of myQrArray;let i = index">
+        <div>
+          <div class="qrDiv">
+          </div>
+          <span>{{qr.name}}</span>
+          <span>QR-Code For {{qr.dataType}}</span>
+          <div class="qr-btn">
+            <fa-icon (click)="editQrcode(i)" [icon]="faEdit"></fa-icon>
+            <fa-icon (click)="downloadQrcode(i)" [icon]="faDownload"></fa-icon>
+            <fa-icon (click)="deleteQrcode(i)" [icon]="faDelete"></fa-icon>
+            <fa-icon (click)="qrcodeInfo(i)" [icon]="faInfo"></fa-icon>
+          </div>
+        </div>
+        <div (click)="qrcodeInfo(i)">
+          <span>This QR-Code For</span>
+          <span *ngIf="qr.dataType == 'url'">{{qr.qrconfig.data}}</span>
+          <span *ngIf="qr.dataType == 'sms'">SMS To {{qr.phone}}</span>
+          <span class="leading-8" *ngIf="qr.dataType == 'email'">Gmail Message To <br>
+            {{qr.email}} <br>Subject Is {{qr.emailSubject}}</span>
+          <span *ngIf="qr.dataType == 'whatsapp'">WhatsApp Chat For {{qr.countryKey+qr.phone}}</span>
+          <span *ngIf="qr.dataType == 'wifi'">{{qr.wifiName}} WIFI Network</span>
+          <span *ngIf="qr.dataType == 'vcard'">{{qr.firstName +" "+qr.lastName}} Phone Number</span>
+          <span *ngIf="qr.dataType == 'phone'">Phone Call For {{qr.mobilePhone}}</span>
+          <span>Width Is : {{qr.qrconfig.width}}px</span>
+          <span>Extension Is : {{qr.extension}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

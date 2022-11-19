@@ -1,0 +1,116 @@
+.dark {
+  .text-violet-700 {
+    @apply text-violet-300;
+  }
+}
+header {
+  @apply relative;
+  .container {
+    @apply flex justify-between items-center;
+    .logo {
+      @apply text-2xl font-bold text-violet-700  py-3;
+    }
+    nav {
+      @apply overflow-hidden flex-grow;
+      ul {
+        @apply text-xl flex gap-3 py-1 justify-center;
+        transition: 0.5s;
+        li {
+          @apply relative text-violet-700 font-bold py-2 px-4 rounded-full transition-colors duration-300 cursor-pointer;
+          &:after {
+            content: "";
+            height: 2px;
+            transition: 0.3s;
+            @apply rounded-full bottom-1/2 opacity-0 absolute w-[6px] bg-violet-700  left-1/2 -translate-x-1/2;
+          }
+          &:hover,
+          &.active {
+            @apply text-violet-900 dark:text-violet-50;
+            &:after {
+              @apply bottom-0 absolute w-[6px] h-[6px] dark:bg-violet-50 bg-violet-900  opacity-100;
+            }
+          }
+        }
+        @media (max-width: 767px) {
+          @apply shadow-md opacity-0 absolute top-full flex-col pt-12 left-1/2 -translate-x-1/2 bg-violet-50 dark:bg-zinc-800 justify-start items-center rounded-3xl -z-10;
+          height: calc(100vh - 80px);
+          width: calc(100% - 20px);
+          li {
+            top: 60px;
+            opacity: 0;
+            transition: 0.5s calc(var(--d) * 0.1s);
+          }
+          &.active {
+            @apply z-20 opacity-100;
+            li {
+              top: 0px;
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+    .dark-mode {
+      @apply text-2xl relative  text-violet-700 dark:hover:text-violet-50 hover:text-violet-500 h-8 w-7;
+      line-height: unset;
+      & > * {
+        @apply absolute top-0 left-0 transition duration-300;
+      }
+      .sun {
+        transform: rotate(90deg) scale(0);
+        opacity: 0;
+        line-height: 150%;
+        height: 100%;
+      }
+      &.active {
+        .moon {
+          transform: rotate(90deg) scale(0);
+          opacity: 0;
+        }
+        .sun {
+          transform: rotate(0deg) scale(1);
+          opacity: 1;
+        }
+      }
+    }
+    .toggle-icon {
+      @apply w-10 h-[30px] relative scale-75 transition duration-500;
+      span {
+        @apply w-full absolute h-[3px] rounded-full bg-violet-900 dark:bg-violet-300;
+        transition: 0.3s;
+        &:nth-child(2) {
+          top: 14px;
+        }
+        &:nth-child(3) {
+          top: 29px;
+        }
+      }
+      &:hover {
+        span {
+          @apply bg-violet-500 dark:bg-violet-50;
+          &:nth-child(2) {
+            @apply w-2/3;
+          }
+        }
+      }
+      &.active {
+        span {
+          @apply top-1/2;
+
+          &:nth-child(1) {
+            transform: rotate(45deg);
+          }
+          &:nth-child(2) {
+            transform: scaleX(0);
+          }
+          &:nth-child(3) {
+            transform: rotate(-45deg);
+          }
+        }
+      }
+      @media (min-width: 768px) {
+        display: none;
+      }
+    }
+  }
+}

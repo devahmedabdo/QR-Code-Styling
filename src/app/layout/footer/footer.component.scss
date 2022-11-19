@@ -1,0 +1,29 @@
+footer {
+  .container {
+    .links {
+      @apply flex justify-center gap-2;
+      &:hover {
+        > div {
+          @apply opacity-70;
+        }
+      }
+      > div {
+        @apply transition flex justify-center items-center h-10 w-10 relative  text-white rounded-2xl z-0 overflow-hidden;
+        background: linear-gradient(94deg, #6d28d9, #b297e8);
+        &::after {
+          content: "";
+          @apply absolute bg-white bg-opacity-30 rotate-45 left-full w-14 h-2 transition duration-500;
+        }
+        &:hover {
+          &::after {
+            @apply -translate-x-32;
+          }
+          @apply opacity-100;
+        }
+      }
+    }
+    > a {
+      @apply font-semibold dark:text-violet-50 text-violet-700 py-4 block w-fit mx-auto;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+
+<footer>
+  <div class="container">
+    <div class="links">
+      <div *ngFor="let link of links">
+        <a [href]="link.link">
+          <fa-icon [icon]="link.icon"></fa-icon>
+        </a>
+      </div>
+    </div>
+    <a href="https://ahmed-abdo.live">All Right Reseved &copy; {{year}} Ahmed Abdo</a>
+  </div>
+</footer>

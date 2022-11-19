@@ -1,0 +1,47 @@
+.home {
+  .container {
+    @apply flex items-center justify-around flex-wrap py-5;
+    min-height: calc(100vh - 156px);
+    > div {
+      &:first-child {
+        @apply flex flex-col items-start gap-3 dark:text-violet-50;
+        h1 {
+          @apply font-extrabold text-4xl whitespace-pre;
+          @media (max-width: 417px) {
+            font-size: 30px;
+          }
+          span {
+            @apply transition duration-300 -translate-y-8 inline-block opacity-0;
+            transition-delay: calc(var(--d) * 0.05s);
+          }
+          &.active {
+            span {
+              @apply -translate-y-0 opacity-100;
+            }
+          }
+        }
+        p {
+          @apply font-semibold text-lg;
+          max-width: 400px;
+        }
+        button {
+          @apply overflow-hidden relative rounded-full px-3 py-2 font-bold text-violet-50 hover:shadow-md  transition bg-violet-700;
+          background: linear-gradient(45deg, #4c1d95, #a369ff);
+          &::after {
+            content: "";
+            @apply absolute bg-white bg-opacity-30 rotate-45 left-[60%] w-full h-3 transition duration-500;
+          }
+          &:hover {
+            &::after {
+              @apply -translate-x-32;
+            }
+          }
+        }
+      }
+      &:last-child {
+        max-width: 500px;
+        min-width: 300px;
+      }
+    }
+  }
+}
