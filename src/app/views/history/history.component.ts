@@ -25,6 +25,8 @@ export class HistoryComponent implements OnInit {
     for (let i = 0; i < this.myQrArray.length; i++) {
       const qrcodeConfig = this.myQrArray[i].qrconfig;
       qrcodeConfig.image = undefined;
+      console.log(qrcodeConfig);
+      // qrcodeConfig.data = await decodeURIComponent(qrcodeConfig.data);
       const qrCode = await new QRCodeStyling(qrcodeConfig);
       let qrDiv = document.querySelector(
         '.qr' + i + '> div > div'
@@ -95,6 +97,7 @@ export class HistoryComponent implements OnInit {
         document
           .querySelector('app-loader section')
           ?.classList.remove('loading');
+        console.log(this.myQrArray);
       }, 100);
     });
   }

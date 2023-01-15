@@ -41,7 +41,7 @@
         </div>
         <div (click)="qrcodeInfo(i)">
           <span>This QR-Code For</span>
-          <span *ngIf="qr.dataType == 'url'">{{qr.qrconfig.data}}</span>
+          <span *ngIf="qr.dataType == 'url'">{{qr.text}}</span>
           <span *ngIf="qr.dataType == 'sms'">SMS To {{qr.phone}}</span>
           <span class="leading-8" *ngIf="qr.dataType == 'email'">Gmail Message To <br>
             {{qr.email}} <br>Subject Is {{qr.emailSubject}}</span>
