@@ -64,14 +64,11 @@ export class GenerateComponent implements OnInit {
     direction: 'horizontal',
     slidesPerView: 7,
     spaceBetween: 10,
-    // pagination: true,
     pagination: {
       el: '.swiper-pagination',
       dynamicBullets: true,
     },
-    // scrollbar: { draggable: true },
   };
-  // settingType: string = 'data';
   dataType?: string = 'url';
   data?: string = '';
   text?: string = 'ahmed-abdo.live';
@@ -256,6 +253,9 @@ export class GenerateComponent implements OnInit {
     this.makeqrcode();
     window.localStorage.removeItem('editQrcode');
   };
+  utf8_encode = function (s: any) {
+    return unescape(encodeURIComponent(s));
+  };
   makeqrcode(): any {
     switch (this.dataType) {
       case 'email':
@@ -364,7 +364,7 @@ END:VCARD`;
       height: this.width,
       shape: this.shape,
       type: 'canvas',
-      data: this.data,
+      data: this.utf8_encode(this.data),
       image: this.logo,
       imageOptions: {
         crossOrigin: this.logoCross,
@@ -393,10 +393,12 @@ END:VCARD`;
       },
       margin: this.margin,
     };
-    const qrCode = new QRCodeStyling(qrcodeConfig);
-    this.canvas.nativeElement.children[0]?.remove();
-    qrCode.append(this.canvas.nativeElement);
-    return { qrCode, qrcodeConfig };
+    if (this.data != '') {
+      const qrCode = new QRCodeStyling(qrcodeConfig);
+      this.canvas.nativeElement.children[0]?.remove();
+      qrCode.append(this.canvas.nativeElement);
+      return { qrCode, qrcodeConfig };
+    }
   }
   download() {
     let qrCode = this.makeqrcode();
